@@ -1,0 +1,2 @@
+class ItemPedidoController < ApplicationController
+end
