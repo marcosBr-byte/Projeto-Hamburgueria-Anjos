@@ -1,14 +1,26 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  root "home#index"
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get "user/login", to: "user#login"
+  post "user/login", to: "user#create_login"
+  get "user/logout", to: "user#logout", as: :logout 
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  get "user/cadastrar", to: "user#cadastrar"
+  post "user/cadastrar", to: "user#create_cadastrar"
+
+  get "/admin", to: "admin#index"
+  get "/admin/index", to: "admin#index"
+
+  get "produto/index", to: "produto#index", as: :index_produto
+  get "produto/cardapio", to: "produto#cardapio", as: :cardapio_produto
+  get "produto/novidades", to: "produto#novidades", as: :novidades_produto
+
+  get "produto/new", to: "produto#new", as: :new_produto
+  post "produto/new", to: "produto#create"
+  get "produto/:id/edit", to: "produto#edit", as: :edit_produto
+  patch "produto/:id", to: "produto#update", as: :produto_update
+  put "produto/:id", to: "produto#update"
+  get "produto/:id", to: "produto#show", as: :show_produto
+  delete "produto/:id", to: "produto#destroy", as: :delete_produto
 end
