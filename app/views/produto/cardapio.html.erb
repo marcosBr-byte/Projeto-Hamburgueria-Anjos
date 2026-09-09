@@ -1,0 +1,22 @@
+<header class="flex justify-between align-center p-8 flex-wrap min-h-30 gap-4 bg-[#0B0A09] text-white w-full shrink-0  sticky top-0 z-50">
+
+    <div class="w-auto h-20">
+         <%= image_tag "icon_anjos.png", alt: "logo",class:"h-full w-auto object-contain"%>
+    </div>
+
+    <nav class="flex flex-wrap gap-4 align-center justify-center">
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/">Inicio</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/promocoes">Promoções</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/novidades">Novidades</a>
+    </nav>
+    <div class="flex gap-3">
+       <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+       <%= button_to "Carrinho", "/carrinho/index", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+    </div>
+</header>
+
+<main class="flex flex-col gap-8 w-full p-8"> 
+    <h1 class="text-3xl font-bold text-center mb-8">Cardápio</h1>
+    <h3 class="text-lg p-4 font-semibold mb-4">Hambúrgueres</h3>
+    
+</main>

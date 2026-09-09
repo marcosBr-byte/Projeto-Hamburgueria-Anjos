@@ -1,0 +1,97 @@
+<header class="flex justify-between align-center p-8 flex-wrap min-h-30 gap-4 bg-[#0B0A09] text-white w-full shrink-0 sticky top-0 z-50">
+
+    <div class="w-auto h-20">
+         <%= image_tag "icon_anjos.png", alt: "logo",class:"h-full w-auto object-contain"%>
+    </div>
+
+    <nav class="flex flex-wrap gap-4 align-center justify-center">
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/">Inicio</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00] hover:underline" href="#destaques">Destaques</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/cardapio">Cardápio</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/promocoes">Promoções</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/novidades">Novidades</a>
+    </nav>
+    <div class="flex gap-3">
+       <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+       <%= button_to "Carrinho", "/carrinho/index", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+    </div>
+</header>
+
+<main class="flex flex-col gap-8 w-full">
+    <section id="secao-carrossel" class="relative w-full">
+        <div class="relative w-full h-212.5 overflow-hidden">
+
+            <div class="flex w-[400%] h-full transition-transform duration-700 has-[#radio2:checked]:-translate-x-[25%] has-[#radio3:checked]:-translate-x-[50%] has-[#radio4:checked]:-translate-x-[75%]">
+                <input type="radio" name="radio-btn" id="radio1" checked class="hidden peer-checked/radio1">
+                <input type="radio" name="radio-btn" id="radio2" class="hidden peer-checked/radio2">
+                <input type="radio" name="radio-btn" id="radio3" class="hidden peer-checked/radio3">
+                <input type="radio" name="radio-btn" id="radio4" class="hidden peer-checked/radio4">
+
+                <div class="relative w-1/4 h-full shrink-0">
+                    <%= image_tag "banner_anjos.png", alt: "Hamburguer principal", class: "w-full h-full object-cover object-center" %>
+                </div>
+
+                <div class="relative w-1/4 h-full shrink-0">
+                    <%= image_tag "banner_novidades_ajustado.png", alt: "Hamburguer principal", class: "w-full h-full object-cover object-center" %>
+                    <div class="absolute inset-0 flex flex-col justify-end items-center gap-4 p-12 bg-black/30 text-white">
+                        <h2 class="text-4xl font-bold">Novidades</h2>
+                        <p class="text-lg">Descubra os lançamentos da nossa hamburgueria</p>
+                        <%= link_to "Ver agora", "/produto/novidades", class: "px-6 py-2 border border bg-[#0B0A09]  rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white"%>
+                    </div>
+                </div>
+
+                <div class="relative w-1/4 h-full shrink-0">
+                    <%= image_tag "banner_promocoes_ajustado.png", alt: "Promoção", class: "w-full h-full object-cover object-center" %>
+                    <div class="absolute inset-0 flex flex-col justify-end items-center gap-4 p-12 bg-black/30 text-white">
+                        <h2 class="text-4xl font-bold">Promoções</h2>
+                        <p class="text-lg">Aproveite ofertas especiais por tempo limitado</p>
+                        <%= link_to "Explorar", "/produto/promocoes", class: "px-6 py-2 border border bg-[#0B0A09]  rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+                    </div>
+                </div>
+
+                <div class="relative w-1/4 h-full shrink-0">
+                    <%= image_tag "banner_cardapio_ajustado.png", alt: "Cardapio completo", class: "w-full h-full object-cover object-center" %>
+                    <div class="absolute inset-0 flex flex-col justify-end items-center gap-4 p-12 bg-black/30 text-white">
+                        <h2 class="text-4xl font-bold">Cardápio</h2>
+                        <p class="text-lg">Conheça todos os nossos sabores</p>
+                        <%= link_to "Ver cardápio", "/produto/cardapio", class: "px-6 py-2 border border bg-[#0B0A09]  rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                <label for="radio1" class="w-3 h-3 rounded-full bg-white/60 cursor-pointer has-checked:bg-orange-500 peer-checked/radio1:bg-orange-500"></label>
+                <label for="radio2" class="w-3 h-3 rounded-full bg-white/60 cursor-pointer has-checked:bg-orange-500 peer-checked/radio2:bg-orange-500"></label>
+                <label for="radio3" class="w-3 h-3 rounded-full bg-white/60 cursor-pointer has-checked:bg-orange-500 peer-checked/radio3:bg-orange-500"></label>
+                <label for="radio4" class="w-3 h-3 rounded-full bg-white/60 cursor-pointer has-checked:bg-orange-500 peer-checked/radio4:bg-orange-500"></label>
+            </div>
+        </div>
+    </section>
+
+    <section id="destaques" class="flex flex-col items-center gap-4 px-8 pb-16">
+        <h1 class="font-bold 4xl">Produtos em Destaque</h1>
+        <p class="text-gray-500 text-sm">Selecionados especialmente para você</p>
+
+        <div class="grid grid-cols-2 items-center sm:grid-cols-3 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+            <% @destaques.each do |produto| %>
+                <article class="flex flex-col gap-4 rounded-xl border border-gray-300   overflow-hidden shadow hover:shadow-lg transition-shadow p-3">
+                    <%= image_tag produto.imagem, alt: produto.nome, class: "w-full h-100 object-cover rounded-lg" %>
+                    <h4 class="font-bold mt-2"><%= produto.nome %></h4>
+                    <p class="font-bold text-lg">R$ <%= number_with_precision(produto.preco, precision: 2, delimiter: ".", separator: ",") %></p>
+                    <p class="text-gray-500 text-sm"><%= produto.categoria.capitalize %></p>
+                    <%= link_to "Ver Produto", show_produto_path(produto), class: "mt-2 text-center px-4 py-2 bg-[#0B0A09] text-white rounded-full font-bold hover:bg-[#FF6B00] hover:text-white transition-colors"  %>
+                </article>
+            <% end %>
+        </div>
+    </section>
+
+     
+</main>
+
+<footer class="flex flex-col items-center gap-2 py-8 bg-[#0B0A09] text-[#0B0A09]">
+    <div class="w-auto h-25">
+        <%= image_tag "icon_anjos.png", alt: "logo" ,class: "h-full w-auto object-contain" %>
+    </div>
+    <p class="text-sm text-gray-400">&copy; <%= Date.current.year %>Hamburgueria Anjos. Todos os direitos reservados.</p>
+</footer>

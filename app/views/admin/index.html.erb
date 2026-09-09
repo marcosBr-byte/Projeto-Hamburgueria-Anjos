@@ -1,0 +1,31 @@
+<header class="flex justify-between items-center p-8 flex-wrap min-h-30 gap-4 bg-[#0B0A09] text-white w-full shrink-0">
+
+
+    <div class="w-auto h-20">
+        <%= image_tag "icon_anjos.png", alt: "logo", class: "h-full w-auto object-contain" %>
+    </div>
+
+    <div class="flex flex-wrap gap-4 align-center justify-center">
+        <%= link_to 'Inicio', "/" ,class: "ml-8  border border-[#0B0A09] font-bold hover:text-[#FF6B00]  hover:bg-[##FF6B00]" %>
+    </div>
+
+    <div class="flex gap-3">
+        <%= button_to 'Produtos', "/produto/index",method: :get, form_class: "inline" ,class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white"%>
+    </div>
+</header>
+<br>
+<main>
+    <div class="grid grid-cols-2 gap-4">
+        <div class="p-6 border rounded-xl shadow bg-white">
+            <p class="text-gray-500 text-sm">Produtos cadastrados</p>
+            <p class="text-3xl font-bold"><%= @total_produtos %></p>
+        </div>
+
+        <div class="p-6 border rounded-xl shadow bg-white">
+            <p class="text-gray-500 text-sm">Produtos modificados</p>
+            <p class="text-3xl font-bold"><%= @total_modificados %></p>
+        </div>
+    </div>
+
+
+</main>

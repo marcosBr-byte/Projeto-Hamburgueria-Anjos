@@ -1,0 +1,64 @@
+<header class="flex justify-between align-center p-8 flex-wrap min-h-30 gap-4 bg-[#0B0A09] text-white w-full shrink-0">
+
+    <div class="w-auto h-20">
+         <%= image_tag "icon_anjos.png", alt: "logo",class:"h-full w-auto object-contain"%>
+    </div>
+
+    <nav class="flex flex-wrap gap-4 align-center justify-center">
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/">Inicio</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00] hover:underline" href="/admin/index">Admin</a>
+       
+    </nav>
+    <div class="flex gap-3">
+      <%= button_to "Novo produto", new_produto_path, method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+    </div>
+</header>
+
+<main class="flex flex-col gap-8" >
+    <section class="max-w-6xl mx-auto w-full">
+      <br>
+        <h1 class="text-3xl font-bold text-center mb-6">Área dos produtos</h1>
+  
+        <div class="flex flex-row justify-center items-center gap-4">
+          <%= link_to "Todos", index_produto_path, class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria.blank?}" %>
+          <%= link_to "Hamburgueres", index_produto_path(categoria: "hamburgueres"), class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria == "hamburgueres"}" %>
+          <%= link_to "Combos", index_produto_path(categoria: "combos"), class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria == "combos"}" %>
+          <%= link_to "Bebidas", index_produto_path(categoria: "bebidas"), class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria == "bebidas"}" %>
+        </div>
+        
+        <br>
+        <% if @produtos.any? %>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 w-full">
+            <% @produtos.each do |produto| %>
+              <div class="flex flex-col justify-center align-center gap-3 p-4 border border-gray-300 rounded-xl shadow-sm">
+
+                <% if produto.imagem.present? %>
+                  <%= image_tag produto.imagem, class: "w-full h-[450px] object-cover rounded-lg" %>
+                <% end %>
+                <h3 class="font-bold text-lg text-center"> <%= produto.nome %></h3>
+                <p class="text-sm text-gray-500 text-center"><%= produto.descricao %></p>
+                <p class="font-bold text-lg text-center"> <%= produto.categoria %></p>
+                <p class="font-bold text-lg text-center"> R$<%= produto.preco %></p>
+                <% if produto.destaque %> 
+                  <p class="font-bold text-lg text-center text-blue-600">Produto em destaque</p>
+                <% end %>  
+                <%= button_to "Editar Produto", edit_produto_path(produto), method: :get, form_class: "w-full flex justify-center mt-2",class: "px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-400 transition" %>
+                <%= button_to "Excluir Produto", delete_produto_path(produto), method: :delete, data: { turbo_confirm: "Tem certeza?" },form_class: "w-full flex justify-center mt-2",class: "px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-400 transition"  %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="font-bold text-lg text-center">Nenhum produto encontrado nessa categoria.</p>
+        <% end %>
+        <br>
+       
+    </section>
+</main>
+
+<footer class="flex flex-col items-center gap-2 py-8 bg-[#0B0A09] text-[#0B0A09]">
+    <div class="w-auto h-25">
+        <%= image_tag "icon_anjos.png", alt: "logo" ,class: "h-full w-auto object-contain" %>
+    </div>
+    <p class="text-sm text-gray-400">&copy; <%= Date.current.year %>Hamburgueria Anjos. Todos os direitos reservados.</p>
+</footer>
+

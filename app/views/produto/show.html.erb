@@ -1,0 +1,37 @@
+<header class="flex justify-between align-center p-8 flex-wrap min-h-30 gap-4 bg-[#0B0A09] text-white w-full shrink-0">
+
+    <div class="w-auto h-20">
+         <%= image_tag "icon_anjos.png", alt: "logo",class:"h-full w-auto object-contain"%>
+    </div>
+
+    <nav class="flex flex-wrap gap-4 align-center justify-center">
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/">Inicio</a> 
+    </nav>
+    <div class="flex gap-3">
+      <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+      <%= button_to "Carrinho", "/carrinho/index", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+    </div>
+</header>
+<br>
+<main class="flex flex-col gap-8">
+   <section class="max-w-6xl mx-auto w-full">
+      <div class="w-full max-w-md p-8 border border-gray-300 rounded-xl shadow-md mx-auto">
+        <%= image_tag @produto.imagem, alt: @produto.nome, class: "w-full h-full object-cover rounded-lg"%>
+
+        <div class="flex flex-col gap-2 mt-4 justify-center items-center">
+          <h4 class="font-bold mt-2"><%= @produto.nome %></h4>
+          <p class="text-sm text-gray-500"><%= @produto.descricao %></p>
+          <p class="font-bold text-lg">R$ <%= @produto.preco %></p>
+          <p class="text-sm text-gray-500">Até 12x de R$ <%= (@produto.preco / 12).round(2) %></p>
+          <p class="estoque">
+            <% if @produto.estoque.to_i > 0 %>
+              <p class="font-bold text-lg">Em estoque</p>
+            <% else %>
+              <p class="font-bold text-lg">Fora de estoque</p>
+            <% end %>
+          </p>
+
+         
+        </div>
+      </div>
+</main>
