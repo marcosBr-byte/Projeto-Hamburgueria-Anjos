@@ -21,7 +21,7 @@
   
         <div class="flex flex-row justify-center items-center gap-4">
           <%= link_to "Todos", index_produto_path, class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria.blank?}" %>
-          <%= link_to "Hamburgueres", index_produto_path(categoria: "hamburgueres"), class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria == "hamburgueres"}" %>
+          <%= link_to "Hambúrgueres", index_produto_path(categoria: "hambúrgueres"), class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria == "hamburgueres"}" %>
           <%= link_to "Combos", index_produto_path(categoria: "combos"), class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria == "combos"}" %>
           <%= link_to "Bebidas", index_produto_path(categoria: "bebidas"), class: "inline-block px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-[#FF6B00]  hover:border-[#FF6B00] #{"ativo" if @categoria == "bebidas"}" %>
         </div>
