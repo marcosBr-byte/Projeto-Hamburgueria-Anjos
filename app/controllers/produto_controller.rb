@@ -102,7 +102,7 @@ class ProdutoController < ApplicationController
   end
 
   def cardapio
-    ordem = { "hamburgueres" => 1, "combos" => 2, "bebidas" => 3 }
+    ordem = { "hambúrgueres" => 1, "combos" => 2, "bebidas" => 3 }
     @produtos = Produto.where(ativo: true).includes(imagem_attachment: :blob)
     @produtos = @produtos.sort_by { |p| ordem[p.categoria] || 99 }
   end
