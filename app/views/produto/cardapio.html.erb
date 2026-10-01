@@ -1,22 +1,115 @@
-<header class="flex justify-between align-center p-8 flex-wrap min-h-30 gap-4 bg-[#0B0A09] text-white w-full shrink-0  sticky top-0 z-50">
+<header class="flex justify-between items-center p-8 flex-wrap min-h-30 gap-4 bg-[#0B0A09] text-white w-full ">
 
     <div class="w-auto h-20">
          <%= image_tag "icon_anjos.png", alt: "logo",class:"h-full w-auto object-contain"%>
     </div>
 
-    <nav class="flex flex-wrap gap-4 align-center justify-center">
+    <nav class="flex flex-wrap  h-12 gap-8 items-center justify-center">
         <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/">Inicio</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00] hover:underline" href="#destaques">Destaques</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="#contato">Contato</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/cardapio">Cardápio</a>
         <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/promocoes">Promoções</a>
         <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/novidades">Novidades</a>
     </nav>
-    <div class="flex gap-3">
-       <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
-       <%= button_to "Carrinho", "/carrinho/index", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+        
+    <div class="flex items-center gap-3">
+        <%= link_to "/user/login", title: "Entrar", "aria-label": "Entrar", class: "flex items-center justify-center w-12 h-12 shrink-0 border rounded-full transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+            </svg>
+        <% end %>
+
+        <%= link_to "/carrinho/index", title: "Carrinho", "aria-label": "Carrinho", class: "flex items-center justify-center w-12 h-12 shrink-0 border rounded-full transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="21" r="1"/>
+            <circle cx="19" cy="21" r="1"/>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+            </svg>
+        <% end %>
     </div>
 </header>
 
 <main class="flex flex-col gap-8 w-full p-8"> 
-    <h1 class="text-3xl font-bold text-center mb-8">Cardápio</h1>
-    <h3 class="text-lg p-4 font-semibold mb-4">Hambúrgueres</h3>
     
+    <div class="flex flex-row justify-between gap-3 p-6 bg-[white] text-[#FF6B00] border border-gray-300 rounded-lg mb-8 shrink-0 sticky top-0 z-50 ">
+        <h1 class="text-3xl font-bold mb-8">Cardápio</h1>
+
+        <select id="categoria" class="w-full max-w-xs border border-gray-300 rounded-lg p-4" onchange="location = this.value;">
+            <option value="/produto/cardapio" <%= "selected" if @categoria.blank? %>>Todos</option>
+            <option value="/produto/cardapio?categoria=hambúrgueres" <%= "selected" if @categoria == "hambúrgueres" %>>Hambúrgueres</option>
+            <option value="/produto/cardapio?categoria=combos" <%= "selected" if @categoria == "combos" %>>Combos</option>
+            <option value="/produto/cardapio?categoria=bebidas" <%= "selected" if @categoria == "bebidas" %>>Bebidas</option>
+        </select>
+
+        <select id="tipo_pedido" class="  w-full max-w-xs border border-gray-300 rounded-lg p-4">
+            <option value="entrega">Entrega</option>
+            <option value="retirada">Retirada</option>
+        </select>
+    </div>
+
+    <h3 class="text-lg p-4 font-semibold mb-4">Hambúrgueres</h3>
+    <% if @produtos.any? %>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 w-full">
+            <% @produtos.each do |produto| %>
+                <% if produto.categoria == "hambúrgueres" %>
+                    <div class="flex flex-col justify-center items-center gap-3 p-4 border border-gray-300 rounded-xl shadow-sm">
+                        <% if produto.imagem.attached? %>
+                            <%= image_tag produto.imagem, class: "w-full h-[450px] object-cover rounded-lg" %>
+                        <% end %>
+                        <h3 class="font-bold text-lg text-center"> <%= produto.nome %></h3>
+                        <p class="text-sm text-gray-500 text-center"><%= produto.descricao %></p>
+                        <p class="font-bold text-lg text-center"> R$<%= produto.preco %></p>
+                        <%= button_to "Adicionar ao Carrinho", add_produto_carrinho_path(produto.id), method: :post, form_class: "inline", class: "justify-center items-center px-6 py-2 border-green-500 bg-green-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:border-green-600 hover:bg-green-600 hover:text-white" %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+        <% else %>
+        <p class="font-bold text-lg text-center">Nenhum produto encontrado nessa categoria.</p>
+      
+    <% end %>
+
+    <h3 class="text-lg p-4 font-semibold mb-4">Combos</h3>
+    <% if @produtos.any? %>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 w-full">
+            <% @produtos.each do |produto| %>
+                <% if produto.categoria == "combos" %>
+                    <div class="flex flex-col justify-center items-center gap-3 p-4 border border-gray-300 rounded-xl shadow-sm">
+                        <% if produto.imagem.attached? %>
+                            <%= image_tag produto.imagem, class: "w-full h-[450px] object-cover rounded-lg" %>
+                        <% end %>
+                        <h3 class="font-bold text-lg text-center"> <%= produto.nome %></h3>
+                        <p class="text-sm text-gray-500 text-center"><%= produto.descricao %></p>
+                        <p class="font-bold text-lg text-center"> R$<%= produto.preco %></p>
+                        <%= button_to "Adicionar ao Carrinho", add_produto_carrinho_path(produto.id), method: :post, form_class: "inline", class: "justify-center items-center px-6 py-2 border-green-500 bg-green-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:border-green-600 hover:bg-green-600 hover:text-white" %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+        <% else %>
+        <p class="font-bold text-lg text-center">Nenhum produto encontrado nessa categoria.</p>
+    <% end %>
+
+    <h3 class="text-lg p-4 font-semibold mb-4">Bebidas</h3>
+    <% if @produtos.any? %>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 w-full">
+            <% @produtos.each do |produto| %>
+                <% if produto.categoria == "bebidas" %>
+                    <div class="flex flex-col justify-center items-center gap-3 p-4 border border-gray-300 rounded-xl shadow-sm">
+                        <% if produto.imagem.attached? %>
+                            <%= image_tag produto.imagem, class: "w-full h-[450px] object-cover rounded-lg" %>
+                        <% end %>
+                        <h3 class="font-bold text-lg text-center"> <%= produto.nome %></h3>
+                        <p class="text-sm text-gray-500 text-center"><%= produto.descricao %></p>
+                        <p class="font-bold text-lg text-center"> R$<%= produto.preco %></p>
+                        <%= button_to "Adicionar ao Carrinho", add_produto_carrinho_path(produto.id), method: :post, form_class: "inline", class: "justify-center items-center px-6 py-2 border-green-500 bg-green-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:border-green-600 hover:bg-green-600 hover:text-white" %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+        <% else %>
+        <p class="font-bold text-lg text-center">Nenhum produto encontrado nessa categoria.</p>
+    <% end %>   
 </main>
