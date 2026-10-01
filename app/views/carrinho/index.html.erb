@@ -1,0 +1,56 @@
+<header class="flex justify-between align-center p-8 flex-wrap min-h-30 gap-4 bg-[#0B0A09] text-white w-full ">
+
+    <div class="w-auto h-20">
+         <%= image_tag "icon_anjos.png", alt: "logo",class:"h-full w-auto object-contain"%>
+    </div>
+
+    <nav class="flex flex-wrap gap-4 align-center justify-center">
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/">Inicio</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00] hover:underline" href="#destaques">Destaques</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/cardapio">Cardápio</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/promocoes">Promoções</a>
+        <a class="ml-8 font-bold hover:text-[#FF6B00]  hover:underline" href="/produto/novidades">Novidades</a>
+    </nav>
+    <div class="flex gap-3">
+       <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline", class: "px-6 py-2 border bg-[#0B0A09] rounded-full cursor-pointer transition-all duration-300 hover:border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white" %>
+    </div>
+</header>
+
+<main class=" flex flex-col gap-8 w-full p-8"> 
+   
+    <div class="flex flex-row justify-between gap-3 p-6 bg-[white] text-[#FF6B00] border border-gray-300 rounded-lg mb-8 shrink-0 sticky top-0 z-50 ">
+        <h1 class="text-3xl font-bold mb-8">Carrinho</h1>
+        <%= button_to "Adicionar mais itens", "/produto/cardapio", method: :get, form_class: "inline", class: "px-6 py-2 border-green-500 bg-green-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:border-green-600 hover:bg-green-600 hover:text-white" %>
+        <%= button_to "Limpar todos os itens", limpar_todos_os_itens_carrinho_path, method: :delete, form_class: "inline", class: "px-6 py-2 border-red-500 bg-red-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:border-red-600 hover:bg-red-600 hover:text-white" %>
+        <%= button_to "Finalizar compra", "/pedido/index", method: :get, form_class: "inline", class: "px-6 py-2 text-white border-blue-500 bg-blue-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:border-blue-600 hover:bg-blue-600 hover:text-white" %>
+    </div>
+
+    <% @itens.each do |item| %>
+    <% produto = @produtos[item.produto_id] %>
+    <% next if produto.nil? %>
+    <div class="flex flex-row items-center gap-4 p-4 border border-gray-300 rounded-xl shadow-sm">
+        <% if produto.imagem.attached? %>
+        <%= image_tag produto.imagem, class: "w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-lg shrink-0" %>
+        <% else %>
+    <div class="w-28 h-28 sm:w-32 sm:h-32 bg-gray-200 rounded-lg shrink-0"></div>
+    <% end %>
+
+    <div class="flex flex-col gap-1 flex-1 min-w-0">
+      <h3 class="font-bold text-lg"><%= produto.nome %></h3>
+      <p class="text-sm text-gray-500 line-clamp-2"><%= produto.descricao %></p>
+      <p class="font-bold">R$ <%= produto.preco %></p>
+      <p class="text-sm">Quantidade: <%= item.quantidade %></p>
+    </div>
+
+    <%= button_to "Remover", remove_produto_carrinho_path(item.id), method: :delete, form_class: "inline", class: "px-6 py-2 bg-red-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:bg-red-600" %>
+  </div>
+<% end %>
+    <% if @itens.empty? %>
+        <p class="font-bold text-lg text-center">Seu carrinho está vazio.</p>
+    <% end %>
+    <br>
+    <div class="flex flex-row justify-center gap-3 p-6 bg-[white] text-[#FF6B00] border border-gray-300 rounded-lg mb-8 shrink-0 sticky top-0 z-50 ">
+        <h1 class="text-3xl font-bold">Total: <%= number_to_currency(@total_carrinho, unit: "R$ ", separator: ",", delimiter: ".") %></h1>
+    </div>
+</main>
+    
