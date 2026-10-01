@@ -5,7 +5,18 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-  helper_method :usuario_logado
+  helper_method :usuario_logado, :logado?
+  helper_method :carrinho
+
+  private
+
+  def carrinho
+    session[:carrinho] ||= []
+  end
+
+  def logado?
+    usuario_logado.present?
+  end
 
   def usuario_logado
     if session[:user_id]
